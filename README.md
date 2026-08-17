@@ -38,7 +38,7 @@ DevOps_Homelab/
 ## Progress
 
 - [x] Linux & networking
-- [ ] Podman
+- [x] Podman
 - [ ] k3s & Helm
 - [ ] Ansible
 - [ ] Prometheus & Grafana
