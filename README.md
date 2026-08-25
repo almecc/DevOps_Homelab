@@ -39,7 +39,7 @@ DevOps_Homelab/
 
 - [x] Linux & networking
 - [x] Podman
-- [ ] k3s & Helm
+- [x] k3s & Helm
 - [ ] Ansible
 - [ ] Prometheus & Grafana
 - [ ] Writeup
