@@ -1,0 +1,25 @@
+---
+- name: Deploy Robot Shop via Helm chart
+  hosts: homelab
+  become: true
+
+  tasks:
+    - name: Ensure robot-shop namespace exists
+      kubernetes.core.k8s:
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: robot-shop
+
+    - name: Deploy Robot Shop Helm chart
+      kubernetes.core.helm:
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        name: robot-shop
+        chart_ref: "{{ playbook_dir }}/../../03-k3s-helm/robot-shop/K8s/helm"
+        release_namespace: robot-shop
+        values:
+          image:
+            version: "2.1.0"

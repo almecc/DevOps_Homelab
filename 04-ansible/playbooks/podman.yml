@@ -1,0 +1,22 @@
+---
+- name: Ensure Podman environment is correctly configured
+  hosts: homelab
+  become: true
+
+  tasks:
+    - name: Ensure Podman is installed
+      dnf:
+        name: podman
+        state: present
+
+    - name: Ensure podman-compose is installed
+      dnf:
+        name: podman-compose
+        state: present
+
+    - name: Ensure docker.io is prioritized in unqualified-search-registries
+      lineinfile:
+        path: /etc/containers/registries.conf
+        regexp: '^unqualified-search-registries'
+        line: 'unqualified-search-registries = ["docker.io"]'
+        backup: true

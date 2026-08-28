@@ -1,0 +1,46 @@
+---
+- name: Install and configure k3s
+  hosts: homelab
+  become: true
+
+  tasks:
+    - name: Check if k3s is already installed
+      stat:
+        path: /usr/local/bin/k3s
+      register: k3s_binary
+
+    - name: Download and install k3s
+      shell: curl -sfL https://get.k3s.io | sh -
+      when: not k3s_binary.stat.exists
+
+    - name: Ensure k3s service is running and enabled
+      systemd:
+        name: k3s
+        state: started
+        enabled: true
+
+    - name: Wait for k3s node to be Ready
+      command: k3s kubectl get nodes
+      register: node_status
+      until: "'Ready' in node_status.stdout"
+      retries: 10
+      delay: 5
+      changed_when: false
+
+    - name: Ensure k3s kubeconfig is readable
+      file:
+        path: /etc/rancher/k3s/k3s.yaml
+        mode: '0644'
+
+    - name: Ensure "standard" StorageClass exists (aliases local-path)
+      kubernetes.core.k8s:
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        state: present
+        definition:
+          apiVersion: storage.k8s.io/v1
+          kind: StorageClass
+          metadata:
+            name: standard
+          provisioner: rancher.io/local-path
+          reclaimPolicy: Delete
+          volumeBindingMode: WaitForFirstConsumer
