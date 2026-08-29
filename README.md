@@ -32,7 +32,6 @@ DevOps_Homelab/
 ├── 03-k3s-helm/
 ├── 04-ansible/
 ├── 05-observability/
-└── docs/
 ```
 
 ## Progress
@@ -41,5 +40,4 @@ DevOps_Homelab/
 - [x] Podman
 - [x] k3s & Helm
 - [x] Ansible
-- [ ] Prometheus & Grafana
-- [ ] Writeup
+- [x] Prometheus & Grafana
