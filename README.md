@@ -8,6 +8,9 @@ I'm building homelab on one machine (no extra hardware) to understand how the pi
 
 This is Project 1 of two. The second project (deploying and automating same Robot Shop app on AWS) comes later, once this one is done.
 
+## Architecture
+<img width="1400" height="750" alt="image" src="https://github.com/user-attachments/assets/325b806a-e2a8-4197-a5e9-1604b71853b1" />
+
 ## What's covered
 
 - Linux and basic networking
