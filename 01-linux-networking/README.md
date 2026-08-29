@@ -50,7 +50,7 @@ ip route show
 nmcli device status
 ```
 
-Single active interface `wlp0s20f3` (wifi), DHCP-assigned `10.186.191.21/24`, default route via `10.186.191.121`. Loopback and standard link-local IPv6 present. No unexpected interfaces or stale routes.
+Single active interface `wlp0s20f3` (wifi), DHCP-assigned `10.186.x.x/24`, default route via `10.186.x.x`. Loopback and standard link-local IPv6 present. No unexpected interfaces or stale routes.
 
 This is the host-level network baseline that Podman's bridge networking and k3s's CNI will sit on top of — container traffic will NAT out through this interface.
 
