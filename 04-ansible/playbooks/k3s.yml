@@ -30,7 +30,7 @@
     - name: Ensure k3s kubeconfig is readable
       file:
         path: /etc/rancher/k3s/k3s.yaml
-        mode: '0644'
+        mode: '0600'
 
     - name: Ensure "standard" StorageClass exists (aliases local-path)
       kubernetes.core.k8s:
