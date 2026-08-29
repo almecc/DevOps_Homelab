@@ -67,10 +67,10 @@ PVC bound immediately afterward. Known minor cleanup item: the cluster now has t
 
 ### 5. Node IP change mid-session broke kubelet's self-identity
 
-The most significant issue: partway through the session, the laptop's IP changed (wifi network switch/DHCP reassignment, `192.168.0.20` → `10.186.191.21`). k3s had registered the node under the old IP, and kubelet entered a persistent retry loop:
+The most significant issue: partway through the session, the laptop's IP changed (wifi network switch/DHCP reassignment, `192.168.x.x` → `10.186.x.x`). k3s had registered the node under the old IP, and kubelet entered a persistent retry loop:
 
 ```
-"Failed to set some node status fields" err="failed to validate nodeIP: node IP: \"10.186.191.21\" not found in the host's network interfaces"
+"Failed to set some node status fields" err="failed to validate nodeIP: node IP: \"10.186.x.x\" not found in the host's network interfaces"
 ```
 
 alongside API authorization errors on pod status updates (`no relationship found between node 'fedora' and this object`) — a downstream symptom of the same node-identity mismatch. This explains the inconsistent, hard-to-pin-down behavior seen earlier in the session: pods stuck silently in `ContainerCreating` with no error, old `Terminating` pods that wouldn't clear, node status intermittently unavailable — all stemming from kubelet fighting an identity mismatch against the API server, not from the pull/storage issues being chased at the time.
